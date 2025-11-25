@@ -24,7 +24,7 @@ This project is powered by [jQuery.IME](https://github.com/wikimedia/jquery.ime)
 
 The Probhat keyboard layout is designed for intuitive Bengali typing. Here's the complete layout reference:
 
-![Probhat Layout](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/KB-Bengali-Probhat.svg/800px-KB-Bengali-Probhat.svg.png)
+![Probhat Layout](probhat-layout.png)
 
 ## 🚧 Roadmap & TODO
 
@@ -34,9 +34,9 @@ The Probhat keyboard layout is designed for intuitive Bengali typing. Here's the
 - [x] Modern Bootstrap 5 UI redesign
 - [x] Noto Serif Bengali font integration
 - [x] Responsive design improvements
+- [x] Save text to local storage
 
 ### 🔮 Planned Features
-- [ ] 💾 Save text to local storage
 - [ ] ⚠️ Warn user when closing with unsaved content
 - [ ] 🌙 Dark mode toggle
 - [ ] 🎨 Customizable themes
