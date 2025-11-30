@@ -148,6 +148,7 @@
             // clear textarea when clicked
             $('#action-clear-all').click(function () {
                 $('#banglapad').val('');
+                localStorage.removeItem('banglapad_content');
                 $('#banglapad').focus();
             });
 
