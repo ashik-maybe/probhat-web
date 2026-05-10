@@ -15,6 +15,10 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --radius: 0.5rem;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 210 40% 98%;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -132,6 +136,35 @@
     transform: scale(0.98);
 }
 
+.btn-secondary {
+    background: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    border-color: hsl(var(--border));
+}
+.btn-secondary:hover {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+.btn-ghost {
+    background: transparent;
+    border-color: transparent;
+    color: hsl(var(--foreground));
+}
+.btn-ghost:hover {
+    background: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+.btn-destructive {
+    background: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+    border-color: hsl(var(--destructive));
+}
+.btn-destructive:hover {
+    background: hsl(var(--destructive) / 0.9);
+}
+
 .btn-label { display: none; }
 .icon { opacity: 0.9; }
 
@@ -184,6 +217,7 @@
     background: hsl(var(--card));
     border-radius: var(--radius);
     border: 1px solid hsl(var(--input));
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
 }
 
 #layout-container {
@@ -317,6 +351,10 @@ main.pin-active {
     background: hsl(var(--accent));
     color: hsl(var(--accent-foreground));
 }
+.back-btn:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+}
 
 .practice-content {
     padding-top: 4rem;
@@ -338,6 +376,10 @@ main.pin-active {
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
 }
+.practice-select:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+}
 
 .practice-reference {
     padding: 0.75rem 1rem;
@@ -350,6 +392,7 @@ main.pin-active {
     user-select: none;
     pointer-events: none;
     color: hsl(var(--foreground));
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
 }
 
 .mobile-unavailable {
