@@ -165,6 +165,37 @@
                 opacity: 1;
                 transform: translateX(-50%) translateY(0);
             }
+            #layout-container.pinned {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 30;
+                margin: 0;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+                box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+            }
+            #action-pin {
+                display: none;
+            }
+            #action-pin.pin-visible {
+                display: inline-flex;
+            }
+            @media (max-width: 767px) {
+                #action-pin {
+                    display: none !important;
+                }
+            }
+            #action-pin[aria-pressed="true"] svg {
+                transform: rotate(180deg);
+            }
+            main.pin-active {
+                padding-bottom: var(--layout-height, 0px);
+                transition: padding-bottom 0.15s ease;
+            }
         </style>
 
         <!-- jQuery & IME -->
@@ -248,17 +279,25 @@
                 let layoutOpen = false;
 
                 function toggleLayout() {
+                    if (layoutOpen && pinned) {
+                        pinned = false;
+                        layoutEl.classList.remove("pinned");
+                        pinBtn.setAttribute("aria-pressed", "false");
+                        mainEl.classList.remove("pin-active");
+                    }
                     layoutOpen = !layoutOpen;
                     if (layoutOpen) {
                         layoutEl.classList.remove("hidden", "state-hidden");
                         layoutEl.classList.add("state-visible");
                         layoutBtn.classList.add("bg-accent", "text-accent-foreground");
                         layoutBtn.setAttribute("aria-expanded", "true");
+                        pinBtn.classList.add("pin-visible");
                     } else {
                         layoutEl.classList.add("state-hidden");
                         layoutBtn.classList.remove("bg-accent", "text-accent-foreground");
                         layoutBtn.setAttribute("aria-expanded", "false");
                         layoutEl.classList.add("hidden");
+                        pinBtn.classList.remove("pin-visible");
                     }
                     $("#banglapad").focus();
                 }
@@ -277,6 +316,34 @@
                 const layoutImg = layoutEl.querySelector("img");
                 if (layoutImg)
                     layoutImg.onerror = () => (layoutImg.src = "public/probhat-layout.png");
+
+                // Pin to bottom
+                const pinBtn = document.getElementById("action-pin");
+                const mainEl = document.querySelector("main");
+                let pinned = false;
+
+                function updatePinPadding() {
+                    if (pinned) {
+                        const h = layoutEl.offsetHeight;
+                        mainEl.style.setProperty("--layout-height", h + "px");
+                        mainEl.classList.add("pin-active");
+                    } else {
+                        mainEl.classList.remove("pin-active");
+                    }
+                }
+
+                pinBtn.addEventListener("click", function () {
+                    pinned = !pinned;
+                    layoutEl.classList.toggle("pinned", pinned);
+                    pinBtn.setAttribute("aria-pressed", String(pinned));
+                    updatePinPadding();
+                    $("#banglapad").focus();
+                });
+
+                const ro = new ResizeObserver(function () {
+                    if (pinned) updatePinPadding();
+                });
+                ro.observe(layoutEl);
 
                 // Hide share button by default
                 if (!/Android|iPhone|iPad/i.test(navigator.userAgent)) {
@@ -413,39 +480,51 @@
                         >0 chars • 0 words</span
                     >
                 </div>
-                <button
-                    id="action-layout"
-                    class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3 gap-1.5 w-full sm:w-auto touch-btn"
-                    aria-expanded="false"
-                    aria-controls="layout-container"
-                    aria-label="Toggle keyboard layout"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="opacity-90"
+                <div class="flex items-center gap-1.5 w-full sm:w-auto">
+                    <button
+                        id="action-layout"
+                        class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3 gap-1.5 w-full sm:w-auto touch-btn"
+                        aria-expanded="false"
+                        aria-controls="layout-container"
+                        aria-label="Toggle keyboard layout"
                     >
-                        <rect width="20" height="16" x="2" y="4" rx="2" />
-                        <path d="M6 8h.001" />
-                        <path d="M10 8h.001" />
-                        <path d="M14 8h.001" />
-                        <path d="M18 8h.001" />
-                        <path d="M8 12h.001" />
-                        <path d="M12 12h.001" />
-                        <path d="M16 12h.001" />
-                        <path d="M7 16h10" />
-                    </svg>
-                    <span class="hidden sm:inline">Layout</span>
-                    <!-- Shortcut tooltip on hover -->
-                    <span class="shortcut-tip hidden md-block">Ctrl+L</span>
-                </button>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="opacity-90"
+                        >
+                            <rect width="20" height="16" x="2" y="4" rx="2" />
+                            <path d="M6 8h.001" />
+                            <path d="M10 8h.001" />
+                            <path d="M14 8h.001" />
+                            <path d="M18 8h.001" />
+                            <path d="M8 12h.001" />
+                            <path d="M12 12h.001" />
+                            <path d="M16 12h.001" />
+                            <path d="M7 16h10" />
+                        </svg>
+                        <span class="hidden sm:inline">Layout</span>
+                        <span class="shortcut-tip hidden md-block">Ctrl+L</span>
+                    </button>
+                    <button
+                        id="action-pin"
+                        class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3 gap-1.5 w-full sm:w-auto touch-btn hidden"
+                        aria-pressed="false"
+                        aria-label="Pin layout to bottom"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="opacity-90">
+                            <line x1="12" y1="4" x2="12" y2="16"/>
+                            <polyline points="8 8 12 4 16 8"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <!-- Editor -->
