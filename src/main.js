@@ -71,25 +71,17 @@ $(document).ready(function () {
     let layoutOpen = false;
 
     function toggleLayout() {
-        if (layoutOpen && pinned) {
-            pinned = false;
-            layoutEl.classList.remove("pinned");
-            pinBtn.setAttribute("aria-pressed", "false");
-            mainEl.classList.remove("pin-active");
-        }
         layoutOpen = !layoutOpen;
         if (layoutOpen) {
             layoutEl.classList.remove("hidden", "state-hidden");
             layoutEl.classList.add("state-visible");
             layoutBtn.classList.add("active");
             layoutBtn.setAttribute("aria-expanded", "true");
-            pinBtn.classList.add("pin-visible");
         } else {
             layoutEl.classList.add("state-hidden");
             layoutBtn.classList.remove("active");
             layoutBtn.setAttribute("aria-expanded", "false");
             layoutEl.classList.add("hidden");
-            pinBtn.classList.remove("pin-visible");
         }
         $("#banglapad").focus();
     }
@@ -108,34 +100,6 @@ $(document).ready(function () {
     const layoutImg = layoutEl.querySelector("img");
     if (layoutImg)
         layoutImg.onerror = () => (layoutImg.src = "public/probhat-layout.png");
-
-    // Pin to bottom
-    const pinBtn = document.getElementById("action-pin");
-    const mainEl = document.querySelector("main");
-    let pinned = false;
-
-    function updatePinPadding() {
-        if (pinned) {
-            const h = layoutEl.offsetHeight;
-            mainEl.style.setProperty("--layout-height", h + "px");
-            mainEl.classList.add("pin-active");
-        } else {
-            mainEl.classList.remove("pin-active");
-        }
-    }
-
-    pinBtn.addEventListener("click", function () {
-        pinned = !pinned;
-        layoutEl.classList.toggle("pinned", pinned);
-        pinBtn.setAttribute("aria-pressed", String(pinned));
-        updatePinPadding();
-        $("#banglapad").focus();
-    });
-
-    const ro = new ResizeObserver(function () {
-        if (pinned) updatePinPadding();
-    });
-    ro.observe(layoutEl);
 
     // Hide share button by default
     if (!/Android|iPhone|iPad/i.test(navigator.userAgent)) {

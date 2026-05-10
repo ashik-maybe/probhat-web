@@ -233,23 +233,6 @@
     pointer-events: auto;
 }
 
-#layout-container.pinned {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 30;
-    margin: 0;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
-}
-#layout-container.pinned .layout-img {
-    max-height: 35vh;
-}
-
 .layout-img-wrap {
     display: flex;
     justify-content: center;
@@ -287,16 +270,6 @@
 #action-layout:hover .shortcut-tip {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
-}
-
-#action-pin { display: none; }
-#action-pin.pin-visible { display: inline-flex; }
-#action-pin[aria-pressed="true"] svg { transform: rotate(180deg); }
-@media (max-width: 767px) { #action-pin { display: none !important; } }
-
-main.pin-active {
-    padding-bottom: var(--layout-height, 0px);
-    transition: padding-bottom 0.15s ease;
 }
 
 #copy-toast {
@@ -393,6 +366,10 @@ main.pin-active {
     pointer-events: none;
     color: hsl(var(--foreground));
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+}
+
+.practice-content .layout-box {
+    margin-top: 0;
 }
 
 .mobile-unavailable {

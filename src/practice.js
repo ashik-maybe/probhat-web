@@ -13,7 +13,6 @@ $(document).ready(function () {
     const select = document.getElementById("pangram-select");
     const refDiv = document.getElementById("pangram-reference");
     const layoutEl = document.getElementById("layout-container");
-    const mainEl = document.querySelector("main");
     const textarea = document.getElementById("banglapad");
 
     function populatePangrams() {
@@ -43,25 +42,7 @@ $(document).ready(function () {
     });
 
     layoutEl.classList.remove("hidden");
-    layoutEl.classList.add("state-visible", "pinned");
-    document.body.classList.add("practice-mode");
-    mainEl.classList.add("pin-active");
-
-    function updatePinPadding() {
-        if (layoutEl.classList.contains("pinned")) {
-            mainEl.style.setProperty(
-                "--layout-height",
-                layoutEl.offsetHeight + "px",
-            );
-        }
-    }
-
-    updatePinPadding();
-
-    const ro = new ResizeObserver(function () {
-        updatePinPadding();
-    });
-    ro.observe(layoutEl);
+    layoutEl.classList.add("state-visible");
 
     textarea.focus();
 });

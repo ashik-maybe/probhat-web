@@ -46,11 +46,13 @@
         <nav class="nav">
             <div class="nav-inner">
                 <div class="toolbar-group">
-                    <img src="favicon.ico" alt="Logo" class="icon" style="width: 1.75rem; height: 1.75rem" />
+                    <img
+                        src="favicon.ico"
+                        alt="Logo"
+                        class="icon"
+                        style="width: 1.75rem; height: 1.75rem"
+                    />
                     <span class="logo-text">অনলাইন প্রভাত কিবোর্ড</span>
-                </div>
-                <div class="toolbar-group" style="width:auto">
-                    <a href="practice.html" class="btn btn-secondary" style="width:auto">প্রাকটিস</a>
                     <a
                         href="https://github.com/ashik-maybe/probhat-online"
                         target="_blank"
@@ -75,6 +77,11 @@
                         </svg>
                     </a>
                 </div>
+                <div class="toolbar-group" style="width: auto">
+                    <a href="practice.html" class="btn btn-secondary" style="width: auto"
+                        >Practice</a
+                    >
+                </div>
             </div>
         </nav>
 
@@ -83,11 +90,7 @@
             <!-- Toolbar -->
             <div class="toolbar">
                 <div class="toolbar-group">
-                    <button
-                        id="action-copy"
-                        class="btn btn-secondary"
-                        aria-label="Copy text"
-                    >
+                    <button id="action-copy" class="btn btn-secondary" aria-label="Copy text">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -105,11 +108,7 @@
                         </svg>
                         <span class="btn-label">Copy</span>
                     </button>
-                    <button
-                        id="action-clear"
-                        class="btn btn-secondary"
-                        aria-label="Clear text"
-                    >
+                    <button id="action-clear" class="btn btn-secondary" aria-label="Clear text">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -128,11 +127,7 @@
                         </svg>
                         <span class="btn-label">Clear</span>
                     </button>
-                    <button
-                        id="action-share"
-                        class="btn-icon hidden"
-                        aria-label="Share text"
-                    >
+                    <button id="action-share" class="btn-icon hidden" aria-label="Share text">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -186,17 +181,6 @@
                         <span class="btn-label">Layout</span>
                         <span class="shortcut-tip">Ctrl+L</span>
                     </button>
-                    <button
-                        id="action-pin"
-                        class="btn btn-ghost"
-                        aria-pressed="false"
-                        aria-label="Pin layout to bottom"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="icon">
-                            <line x1="12" y1="4" x2="12" y2="16"/>
-                            <polyline points="8 8 12 4 16 8"/>
-                        </svg>
-                    </button>
                 </div>
             </div>
 
@@ -232,10 +216,7 @@
         </main>
 
         <!-- Instant Toast -->
-        <div
-            id="copy-toast"
-            class="toast hidden"
-        >
+        <div id="copy-toast" class="toast hidden">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
